@@ -1,0 +1,29 @@
+{% extends 'posts/basic.html' %}
+
+{% block title %}Register{% endblock title %}
+
+{% block mainbody %}
+<br>
+<br>
+<div style="margin:auto; width:50%">
+<h1>Register</h1>
+<form method="post" action="{% url 'register' %}" style="border:2px solid black; padding:10px">
+{% csrf_token %}
+<label for="name">Name:</label><input type="text" name="name"><small style="color:grey">{{ name }}</small>
+<br>
+<label for="username">Username:</label><input type="text" name="username"><small style="color:grey">{{ username }}</small>
+<br>
+<label for="password1">Choose Password:</label><input type="password" name="password1">
+<br>
+<label for="password2">Confirm Password:</label><input type="password" name="password2"><small style="color:grey">{{ password }}</small>
+<br>
+<label for="date">Birth Date:</label><input type="date" name="date"><small style="color:grey">{{ date }}</small>
+<br>
+<label for="about">About:</label><textarea name="about" rows="5" cols="80" placeholder="Enter Your Bio Here!"></textarea>
+<br>
+<input type="Submit" value="Register!">
+<p style="color:grey; text-align:center; font-weight:bold">{{ nodata }}</p>
+</form>
+<p style="text-align:center">Already Registered! <a href="{% url 'login' %}">Login Here.</a></p>
+</div>
+{% endblock mainbody %}

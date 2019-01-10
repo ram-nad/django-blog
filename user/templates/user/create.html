@@ -1,0 +1,22 @@
+{% extends 'posts/basic.html' %}
+
+{% block title %}Create Post{% endblock title %}
+
+{% block mainbody %}
+<br>
+<br>
+<div style="margin:auto; width:70%">
+<h1>Create a new BLOG</h1>
+<form method="post" action="{% url 'create' %}" style="border:2px solid black; padding:10px">
+{% csrf_token %}
+<label for="title">Title:</label><input type="text" name="title" value="{{ titledata }}"><small style="color:grey">{{ title }}</small>
+<br>
+<label for="blog">Blog:</label><textarea name="blog" rows="8" cols="110" placeholder="Enter Your Bio Here!">{{ blogdata }}</textarea><small style="color:grey">{{ blog }}</small>
+<br>
+<label for="tags">Tags:</label><input type="text" name="tags" value="{{ tagsdata }}"><small style="color:grey">{{ tags }}</small>
+<br>
+<input type="Submit" value="Create New Post!">
+<p style="color:grey; text-align:center; font-weight:bold">{{ nodata }}</p>
+</form>
+</div>
+{% endblock mainbody %}

@@ -1,0 +1,29 @@
+{% extends "posts/basic.html" %}
+
+{% block title %}Explore{% endblock title %}
+
+{% block styletag %}
+.tag{
+   margin: 2px;
+   border: solid 1px black;
+   padding: 2px;
+}
+{% endblock styletag %}
+{% block mainbody %}
+<br>
+<h1>Explore New Bloggers</h1>
+{% for person in persons %}
+<div>
+<h3>{{ person.name }}@<a href="{% url 'index' person.user.username %}">{{ person.user.username }}</a></h3>
+<h5>Author has {{ person.post_set.count }} posts. Here's a recent one.</h5>
+<fieldset>
+<legend>{{ person.recentpost.title }}</legend>
+{{ person.recentpost.content|truncatewords:30 }}
+<br>
+<span style="float:right">{% for tag in person.recentpost.tags.all %}<span class="tag"><a href="{% url 'tags' tag.first_name %}">{{ tag.first_name }}</a></span>{% endfor %}</span>
+<br>
+<div style="margin:auto; width:100%; text-align:center; font-weight:bold"><a href="{% url 'postview' person.user.username person.recentpost.pk %}">Vist Full Post</a></div>
+</fieldset>
+{% endfor %}
+</div>
+{% endblock mainbody %}

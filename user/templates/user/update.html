@@ -1,0 +1,27 @@
+{% extends 'posts/basic.html' %}
+
+{% block title %}Update Profile{% endblock title %}
+
+{% block mainbody %}
+<br>
+<br>
+<div style="margin:auto; width:50%">
+<h1>Update Your Profile</h1>
+<form method="post" action="{% url 'update' %}" style="border:2px solid black; padding:10px">
+{% csrf_token %}
+<label for="name">Name:</label><input type="text" name="name" value="{{ namedata }}"><small style="color:grey">{{ name }}</small>
+<br>
+<label for="password1">New Password:</label><input type="password" name="password1">
+<br>
+<label for="password2">Confirm New Password:</label><input type="password" name="password2"><small style="color:grey">{{ password }}</small>
+<br>
+<label for="about">About:</label><textarea name="about" rows="5" cols="80" placeholder="Enter Your Bio Here!">{{ bio }}</textarea>
+<br>
+<label for="oldpass">Enter Current Password:</label><input type="password" name="oldpass">
+<br>
+<input type="Submit" value="Update">
+<p style="color:grey; text-align:center; font-weight:bold">{{ nodata }}</p>
+</form>
+<p style="text-align:center">Leave New Password fields empty for not not changing password.</a></p>
+</div>
+{% endblock mainbody %}
