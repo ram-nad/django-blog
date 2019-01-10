@@ -1,0 +1,22 @@
+{% extends 'posts/basic.html' %}
+
+{% block title %}Login{% endblock title %}
+{% block mainbody %}
+<br>
+<br>
+<div style="margin:auto; width:20%">
+<h1>Login</h1>
+<form method="post" action="{% url 'login' %}" style="border:2px solid black; padding:10px">
+{% csrf_token %}
+<label for="username">Username:</label><input type="text" name="username" placeholder="Username">
+<br>
+<label for="password">Password:</label><input type="password" name="password">
+<br>
+<input type="Submit" value="Login!">
+{% if error %}
+<p style="color:grey; text-align:center;">{{ error }}</p>
+{% endif %}
+</form>
+<p style="text-align:center">Not Registerd Yet, <a href="{% url 'register' %}">Click Here!</a></p>
+</div>
+{% endblock mainbody %}
