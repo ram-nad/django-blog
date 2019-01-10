@@ -1,0 +1,25 @@
+{% extends "posts/basic.html" %}
+
+{% block title %}{{ post.title }} - {{ post.creator.name }}{% endblock title %}
+
+{% block styletag %}
+.tag{
+   margin: 2px;
+   border: solid 1px black;
+   padding: 2px;
+}
+{% endblock styletag %}
+
+{% block mainbody %}
+<div>
+<h3>{{ post.title }}</h3>
+<h4>Author: <a href="{% url 'index' post.creator.user.username %}" class="user">{{ post.creator.name }}</a></h4>
+<h2>Tags:</h2>
+{% for tag in post.tags.all %}<span class="tag"><a href="{% url 'tags' tag.first_name %}">{{ tag.first_name }}</a></span>{% endfor %}
+</div>
+<br>
+<hr>
+<div style="margin:auto; width:70%; border:2px solid black">
+{{ post.content|linebreaks }}
+</div>
+{% endblock mainbody %}

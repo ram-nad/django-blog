@@ -1,0 +1,19 @@
+{% extends "posts/basic.html" %}
+
+{% block title %}#{{ tag.first_name }}{% endblock title %}
+
+{% block mainbody %}
+<div>
+<h3>Posts - #{{ tag.first_name }}</h3>
+</div>
+<br>
+<hr>
+{% for a_post in posts %}
+<fieldset>
+<legend>{{ a_post.title }} - <a href="{% url 'index' a_post.creator.user.username %}" class="user">{{ a_post.creator.name }}</a></legend>
+{{ a_post.content|truncatewords:30 }}
+<br>
+<div style="margin:auto; width:100%; text-align:center; font-weight:bold"><a href="{% url 'postview' a_post.creator.user.username a_post.pk %}">Vist Full Post</a></div>
+</fieldset>
+{% endfor %}
+{% endblock mainbody %}

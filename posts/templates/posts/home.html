@@ -1,0 +1,40 @@
+{% extends "posts/basic.html" %}
+
+{% block title %}Welcome{% endblock title %}
+
+{% block styletag %}
+#main{
+	width:70%;
+	margin:auto;
+	font-size:20px;
+}
+.tag{
+   margin: 2px;
+   border: solid 1px black;
+   padding: 2px;
+}
+{% endblock styletag %}
+
+{% block mainbody %}
+<br>
+<br>
+<br>
+<div id="main">
+<span style="font-weight:bold">Welcome to Blogs' HomePage</span>- here you can create your own blogs and share them with the world. Also you can see
+other people's work. This site let you tag your posts, so that they could be find easily.
+Want to explore new bloggers? <a href="{% url 'explore' %}"><input type="button" value="Click Here"></a>
+</div>
+<br>
+<hr>
+<h3>Some Recent Posts:</h3>
+{% for a_post in posts %}
+<fieldset>
+<legend>{{ a_post.title }} - <a href="{% url 'index' a_post.creator.user.username %}" class="user">{{ a_post.creator.name }}</a></legend>
+{{ a_post.content|truncatewords:30 }}
+<br>
+<span style="float:right">{% for tag in a_post.tags.all %}<span class="tag"><a href="{% url 'tags' tag.first_name %}">{{ tag.first_name }}</a></span>{% endfor %}</span>
+<br>
+<div style="margin:auto; width:100%; text-align:center; font-weight:bold"><a href="{% url 'postview' a_post.creator.user.username a_post.pk %}">Vist Full Post</a></div>
+</fieldset>
+{% endfor %}
+{% endblock mainbody %}

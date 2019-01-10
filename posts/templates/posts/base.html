@@ -1,0 +1,38 @@
+{% extends "posts/basic.html" %}
+
+{% block title %}{{ person.name }}{% endblock title %}
+
+{% block styletag %}
+.tag{
+   margin: 2px;
+   border: solid 1px black;
+   padding: 2px;
+}
+{% endblock styletag %}
+{% block mainbody %}
+<div>
+<h3>{{ person.name }}@{{ person.user.username }}</h3>
+<h5>Birthday: {{ person.bdate|date:"F j" }}</h5>
+<div style="margin-left:100px">
+<div style="width:100%; padding-left:80%; font-weight:bold">
+{% if request.user.is_authenticated and request.user.username == person.user.username %}<a href="{% url 'update' %}">Update Your Profile</a>{% endif %}
+</div>
+{{ person.bio|linebreaks }}
+</div>
+<br>
+<hr>
+{% if posts %}
+{% for a_post in posts %}
+<fieldset>
+<legend>{{ a_post.title }}</legend>
+{{ a_post.content|truncatewords:30 }}
+<br>
+<span style="float:right">{% for tag in a_post.tags.all %}<span class="tag"><a href="{% url 'tags' tag.first_name %}">{{ tag.first_name }}</a></span>{% endfor %}</span>
+<br>
+<div style="margin:auto; width:100%; text-align:center; font-weight:bold"><a href="{% url 'postview' a_post.creator.user.username a_post.pk %}">Vist Full Post</a></div>
+</fieldset>
+{% endfor %}
+{% else %}
+<span>{{ person.name }} does not have a post yet.</span>
+{% endif %}
+{% endblock mainbody %}
