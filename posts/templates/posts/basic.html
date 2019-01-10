@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Blogs: {% block title %}{% endblock title %}</title>
+<style>
+a{
+   text-decoration:none;
+   color:black;
+}
+a:hover{
+   color:grey;
+}
+.navbtn{
+	text-align:center;
+	font-size:15px; 
+	width:20%; 
+	font-weight:bold; 
+	float:right;
+}
+{% block styletag %}
+{% endblock styletag %}
+</style>
+</head>
+<body>
+<div style="width:70%; margin:auto">
+<span style="font-size:20px; width:40%; font-weight:bold;"><a href="{% url 'home' %}">BLOGS</a></span>
+{% if request.user.is_authenticated %}
+<span class="navbtn"><a href="{% url 'logout' %}">Logout</a></span>
+<span class="navbtn"><a href="{% url 'create' %}">Create</a></span>
+<span class="navbtn"><a href="{% url 'index' request.user.username %}">@{{ request.user.username }}</a></span>
+{% else %}
+<span class="navbtn"><a href="{% url 'login' %}">Login</a></span>
+<span class="navbtn"><a href="{% url 'register' %}">Register</a></span>
+{% endif %}
+</div>
+{% block mainbody %}
+{% endblock mainbody %}
+</body>
+</html>
